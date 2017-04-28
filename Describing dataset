@@ -1,0 +1,37 @@
+# I am using the pima-indian-dataset from the UCI Website
+# desctibing the dimensions of the dataset
+from pandas import read_csv
+from pandas import set_option
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(filename, names=names)
+set_option('display.width', 100)
+set_option('precision', 3)
+description = data.describe()
+print(description)
+#class description
+from pandas import read_csv
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(filename, names=names)
+class_counts = data.groupby('class').size()
+print(class_counts)
+#correlation of data in the dataset
+from pandas import read_csv
+from pandas import set_option
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(filename, names=names)
+set_option('display.width', 100)
+set_option('precision', 3)
+correlation = data.corr(method='pearson')
+print(correlation)
+#Finding out if a dataset is skewed
+#positive means a skew to the right, negative means the data is skewed to the left 
+#and a number close to zero means that there is less of a skew
+from pandas import read_csv
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(filename, names=names)
+skew = data.skew()
+print(skew)
