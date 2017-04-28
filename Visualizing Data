@@ -1,0 +1,46 @@
+#univariate distributions
+from matplotlib import pyplot
+from pandas import read_csv
+filename  = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(filename, names=names)
+data.hist()
+pyplot.show()
+
+#univariate density plots
+from matplotlib import pyplot
+from pandas import read_csv
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(filename, names=names)
+data.plot(kind='density', subplots=True, layout=(4, 4), sharex=False)
+pyplot.show()
+#correlation matrix
+from matplotlib import pyplot
+from pandas import read_csv
+import numpy as np
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(filename, names=names)
+correlations = data.corr()
+
+#ploting the correlation matrix
+fig = pyplot.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(correlations, vmin=-1, vmax=1)
+fig.colorbar(cax)
+ticks = np.arange(0, 9, 1)
+ax.set_xticks(ticks)
+ax.set_yticks(ticks)
+ax.set_xticklabels(names)
+ax.set_yticklabels(names)
+pyplot.show()
+#scatter_plot matrix
+from matplotlib import pyplot
+from pandas import read_csv
+from pandas.tools.plotting import scatter_matrix
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+data = read_csv(filename, names=names)
+scatter_matrix(data)
+pyplot.show()
