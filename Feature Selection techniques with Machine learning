@@ -1,0 +1,72 @@
+#uNIVARIATE FEATURE SELECTION
+from pandas import read_csv
+from numpy import set_printoptions
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+
+#loading the data set
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+#creating a dataframe
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#separating outputs and inputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#feature selection
+test = SelectKBest(score_func=chi2, k = 4)
+fit = test.fit(X, Y)
+
+#PRINTING OUT THE SELECTED VALUES
+set_printoptions(precision=3)
+print(fit.scores_)
+features = features.transform(X)
+
+#printing results
+print(features[0:5,:])
+
+#Recursive feature elimination
+from pandas import read_csv
+from numpy import set_printoptions
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+
+#load the data
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#separate data into input and output components
+X = array[:,0:8]
+Y = array[:,8]
+
+#feature selection
+model = LogisticRegression()
+rfe = RFE(model, 3) # selecting 3 major features in the dataset
+fit = rfe.fit(X, Y)
+print(fit.n_features_)
+print(fit.support_)
+print(fit.ranking_)
+
+#investigating feature importance
+from pandas import read_csv
+from sklearn.ensemble import ExtraTreesClassifier
+
+#Loading the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#separating dataset components
+X  =array[:,0:8]
+Y = array[:,8]
+
+#feature extraction
+model = ExtraTreesClassifier()
+model.fit(X, Y)
+print(model.feature_importances_)
+#features with the highest values have the highest importance
