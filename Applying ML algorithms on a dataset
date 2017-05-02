@@ -1,0 +1,133 @@
+#Using Logistic Regression
+#lOGISTIC Regresiion Classification
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+#Loading the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#Input and output components
+X = array[:,0:8]
+Y = array[:,8]
+
+#Applying the algorithm
+n_splits = 10
+seed = 7
+kfold = KFold(n_splits=n_splits, random_state=seed)
+model = LogisticRegression()
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+
+#Testing the Linear Discriminant Analysis tool on a dataset
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
+#Load the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#Separate components into inputs and Outputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#Apply the algorithm
+n_splits = 10
+
+kfold = KFold(n_splits=n_splits, random_state=7)
+model = LinearDiscriminantAnalysis()
+results = cross_val_score(model, X, Y, cv=kfold)
+print("The mean is: %.9f (%.9f)" %(results.mean(), results.std()))
+
+#My first use of the k-neighbors algorithm The KNN Classifier
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
+
+#Loading the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#separate data into inputs and outputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#Loading the algorithm
+kfold = KFold(n_splits=10, random_state=7)
+model = KNeighborsClassifier()
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+#The Gaussian Naive Bayes Classification
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.naive_bayes import GaussianNB
+
+#Loading the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+#Separate the data into inputs and outputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#aPPLYING THE Naive Bayes Algorithm
+kfold = KFold(n_splits=10, random_state=7)
+model = GaussianNB()
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+
+#Using the Classification and RegressionTrees Classifier
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.tree import DecisionTreeClassifier
+
+#Loading the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#Separate the Inputs and Outputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#Applying the algorithm
+kfold = KFold(n_splits=10, random_state=7)
+model = DecisionTreeClassifier()
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+#Using the Support Vector Machines Classification Algorithm in Machine Learning
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.svm import SVC
+
+#lOADING THE DATASET
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#Separating the data into Inputs and outputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#Applying the algorithm
+kfold = KFold(n_splits=10, random_state=7)
+model = SVC()
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+print(results)
