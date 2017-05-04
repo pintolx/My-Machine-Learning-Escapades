@@ -1,0 +1,53 @@
+#In this exercise, i will try to compare a number of machine learning algorithms on a single dataset
+#To determine which algorithm offers the highest accuracy
+#Comparing Multiple Machine Learning Algorithms to determine 
+# What the most accurate algorithm is for the pima-indians-diabetes dataset
+from pandas import read_csv
+from matplotlib import pyplot
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+
+#Loading the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+#Separating inputs and outputs
+X = array[:,0:8] #Skip the first row, give me everything up to the 8th column
+Y = array[:,8] # Give me everything after the 8th column
+
+#Preparing the models
+models = []
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('LogR', LogisticRegression()))
+models.append(('SVM', SVC()))
+models.append(('NB', GaussianNB()))
+models.append(('CART', DecisionTreeClassifier()))
+
+#Evaluating each model_selection
+results = []
+names = []
+scoring = 'accuracy'
+
+for name, model in models:
+    kfold = KFold(n_splits=10, random_state=7)
+    cv_results = cross_val_score(model, X, Y, cv=kfold, scoring=scoring)
+    results.append(cv_results)
+    names.append(name)
+    msg = '%s: %f (%f)' %(name, cv_results.mean(), cv_results.std())
+    print(msg)
+
+#Boxplot Algorithm Comparison
+fig = pyplot.figure()
+fig.suptitle('Algorithm Comparison')
+ax = fig.add_subplot(111)
+pyplot.boxplot(results)
+ax.set_xticklabels(names)
+pyplot.show()
