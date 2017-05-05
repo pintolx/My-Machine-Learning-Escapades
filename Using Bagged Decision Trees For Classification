@@ -1,0 +1,97 @@
+#Bagged Decision Tree for Classification
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+
+#Adding data to the model
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#Separate the outputs and inputs
+X = array[:,0:8]
+Y = array[:,8]
+seed = 7
+#Applying the model
+kfold = KFold(n_splits=10, random_state=seed)
+cart = DecisionTreeClassifier()
+num_trees = 100
+model = BaggingClassifier(base_estimator=cart, n_estimators=num_trees, random_state=seed)
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+
+#Classification Using Random Forest
+#Classification Using Random Forest
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+
+#ADDING A DATASET TO THE MODEL
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe  = read_csv(filename, names=names)
+array = dataframe.values
+
+#Separating the data into inputs and outputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#Applying the Classification Model
+num_trees = 100
+max_features = 3
+kfold = KFold(n_splits=10, random_state=7)
+model = RandomForestClassifier(n_estimators=num_trees, max_features=max_features)
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+#Extra Trees Classification Ensemble
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import ExtraTreesClassifier
+
+#lOAD THE DATA
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe  = read_csv(filename, names=names)
+array = dataframe.values
+
+#Separating the Inputs and Outputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#Loading the model 
+num_trees = 100
+max_features = 7
+kfold = KFold(n_splits=10, random_state=7)
+model = ExtraTreesClassifier(n_estimators=num_trees, max_features=max_features)
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+
+#AdaBoost Classification
+from pandas import read_csv
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import AdaBoostClassifier
+
+#Adding the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#Splitting the Dataset into Inputs and Outputs
+X = array[:,0:8]
+Y = array[:,8]
+
+#Applying the model
+num_trees = 30
+seed =7
+kfold = KFold(n_splits=10, random_state=seed)
+model = AdaBoostClassifier(n_estimators=num_trees, random_state=num_trees)
+results = cross_val_score(model, X, Y, cv=kfold)
+print(results.mean())
+
