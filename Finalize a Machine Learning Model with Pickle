@@ -1,0 +1,62 @@
+#Finalize a Machine Learning Model with Pickle
+from pandas import read_csv
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from pickle import dump
+from pickle import load
+
+#Loading the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+
+#Split the input and outputs of the dataset
+X = array[:,0:8]
+Y = array[:,8]
+
+#applying the model 
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.33, random_state=7)
+#Fit the model on 33%
+model = LogisticRegression()
+model.fit(X_train, Y_train)
+#sAVE THE MODEL TO DISK
+filename = 'finalized_model.sav'
+dump(model, open(filename, 'wb'))
+
+#Using the model sometime later
+load_model = load(open(filename, 'rb'))
+results = load_model.score(X_test,Y_test)
+print(results)
+
+#Save a model Using Job Lib
+from pandas import read_csv
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.externals.joblib import dump
+from sklearn.externals.joblib import load
+
+#Loading the dataset
+filename = 'pima-indians-diabetes.data.csv'
+names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
+dataframe = read_csv(filename, names=names)
+array = dataframe.values
+#sEPARATE THE INPUTS AND OUTPUTS
+X = array[:,0:8]
+Y = array[:,8]
+#Applying the model
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.33, random_state=7)
+#fitting the model on the 33%
+model = LinearRegression()
+model.fit(X_train, Y_train)
+
+#sAVING THE MODEL TO THE DISK
+filename = 'finaalized_model.sav'
+dump(model, filename)
+
+#Sometime later....
+
+#Loading the model from disk
+loaded_model = load(filename)
+result = loaded_model.score(X_test, Y_test)
+print(result)
